@@ -35,15 +35,15 @@ export default function Login() {
             <div className="card p-3 w-50 mx-auto">
                 <h2 className="text-center">Login Page</h2>
                 <form onSubmit={handleSubmit}>
-                    <label>Select Usertype</label>
+                    <label></label>
                     <select
-                        className="form-select text-center"
+                        className="form-select text-center mb-3"
                         value={usertype}
                         onChange={(e) => setUsertype(e.target.value)}
                         required
                     >
                         <option value="" hidden>
-                            Select Usertype
+                            ---Select Usertype---
                         </option>
                         <option value="admin">Admin</option>
                         <option value="user">User</option>
@@ -51,7 +51,7 @@ export default function Login() {
                     <label>Enter email</label>
                     <input
                         type="email"
-                        className="form-control"
+                        className="form-control mb-3"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
@@ -59,13 +59,13 @@ export default function Login() {
                     <label>Enter Password</label>
                     <input
                         type="password"
-                        className="form-control"
+                        className="form-control mb-3"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     <button to="/" className="btn btn-primary" type="submit">
-                        Home
+                        Login
                     </button>
                 </form>
             </div>
