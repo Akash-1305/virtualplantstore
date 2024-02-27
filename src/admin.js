@@ -1,11 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import Manageproducts from "./manageproducts";
 
 export default function Admin() {
     return (
-        <>
-            <h2> Admin </h2>
-            <Link to={'/manageproducts'}>Manageproducts</Link>
-        </>
+        <div>
+            <Manageproducts />
+        </div>
     );
 }

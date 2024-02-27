@@ -2,23 +2,31 @@ import Admin from './admin';
 import User from './user';
 import Login from './Login';
 import Home from './Home';
+import Header from './Header';
 import Manageproducts from './manageproducts';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css';
+import '/node_modules/react-toastify/dist/ReactToastify.css';
+import './index.css';
+import Adminnav from './Adminnav';
+export const baseurl = "http://localhost:8081"
 
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Link to='/'>Home</Link>
-      <Link to='/login'>Login</Link>
       <Routes>
+        <Route path='/' element={<Header />}>
         <Route path='/' element={<Home />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/admin' element={<Admin />} />
-        <Route path='/user' element={<User />} />
+        <Route path='/Login' element={<Login />} />
+        </Route>
       </Routes>
       <Routes>
-        <Route path='/manageproducts' element={<Manageproducts />} />
+      <Route path='/' element={<Adminnav/>}>
+        <Route path='/Admin' element={<Admin />} />
+        <Route path='/User' element={<User />} />
+        <Route path='/Manageproducts' element={<Manageproducts />} />
+      </Route>
       </Routes>
     </BrowserRouter>
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import 'bootstrap/dist/css/bootstrap.css'
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify"
 
 export default function Login() {
     
@@ -15,19 +15,20 @@ export default function Login() {
         e.preventDefault();
         const obj = { email: username, password, userType:usertype };
         axios
-            .post("http://localhost:8082/LoginVerify", obj)
+            .post("http://localhost:8081/LoginVerify", obj)
             .then((res) => {
                 if (res.data === "admin") {
-                    navigate("/admin");
-                    alert("Login successfully");
+                    toast.success("Login Succesful")
+                    navigate("/Admin");
                 }
                 if (res.data === "user") {
-                    navigate("/user");
-                    alert("Login successfully");
+                    toast.success("Login Succesful")
+                    navigate("/User");
                 }
             })
             .catch((err) => {
-                alert("Failed to login");
+                toast.error("No Admin Found")
+                console.error("Error during login",err);
             });
     }
     return (
