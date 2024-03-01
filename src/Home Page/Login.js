@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify"
 
 export default function Login() {
-    
+
     const [usertype, setUsertype] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -13,7 +13,7 @@ export default function Login() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        const obj = { email: username, password, userType:usertype };
+        const obj = { email: username, password, userType: usertype };
         axios
             .post("http://localhost:8081/LoginVerify", obj)
             .then((res) => {
@@ -27,13 +27,13 @@ export default function Login() {
                 }
             })
             .catch((err) => {
-                toast.error("No Admin Found")
-                console.error("Error during login",err);
+                toast.error("Failed to Login")
+                console.error("Error during login", err);
             });
     }
     return (
         <div>
-            <div className="card p-3 w-50 mx-auto">
+            <div className="card m-3 p-3 w-50 mx-auto">
                 <h2 className="text-center">Login Page</h2>
                 <form onSubmit={handleSubmit}>
                     <label></label>
@@ -65,9 +65,14 @@ export default function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <button to="/" className="btn btn-primary" type="submit">
-                        Login
-                    </button>
+                    <div className="text-center">
+                        <button to="/" className="btn btn-primary" type="submit">
+                            Login
+                        </button>
+                    </div>
+                    <div>
+                        Not Registered? <Link to="/Register">Register</Link>
+                    </div>
                 </form>
             </div>
         </div>

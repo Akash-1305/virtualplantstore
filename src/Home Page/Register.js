@@ -11,7 +11,7 @@ export default function Registration() {
   const [mobile, setMobile] = useState("");
   const [userType, setUserType] = useState("");
 
-  const handleSubmit = (e) =>{
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const data = { name, email, mobile, address, password };
@@ -20,32 +20,28 @@ export default function Registration() {
       axios
         .post("http://localhost:8081/AddAdmin", data)
         .then((res) => {
-          alert(res.data); 
+          toast.info(res.data);
           ClearAll();
-          alert ("Farmer Added Succesfully")
         })
         .catch((err) => {
-          toast.error(err.response.data); 
+          toast.error(err.data);
           console.log(err);
-          alert("Error")
         });
     } else if (userType === "User") {
       axios
-        .post("http://localhost:3401/AddUser", data)
+        .post("http://localhost:8081/AddUser", data)
         .then((res) => {
-          toast.success(res.data); 
+          toast.info(res.data);
           ClearAll();
         })
         .catch((err) => {
-          toast.error(err.response.data); 
+          toast.error(err.data);
           console.log(err);
         });
     }
-    else
-    {
-      alert("")
+    else {
     }
-  }    
+  }
 
   function ClearAll() {
     setUserType("");
@@ -58,8 +54,8 @@ export default function Registration() {
 
   return (
     <div>
-      <div className="card p-3 w-50 mx-auto bg-light">
-        <h1 className="mb-5 mt-3 text-center">Sign-up</h1>
+      <div className="card m-3 p-3 w-50 mx-auto">
+      <h2 className="text-center">Sign Up</h2>
 
         <form onSubmit={handleSubmit}>
           <select
@@ -68,12 +64,11 @@ export default function Registration() {
             onChange={(e) => setUserType(e.target.value)}
             required
           >
-            <option value="" hidden>----Select Usertype---</option>
+            <option value="" hidden>---Select Usertype---</option>
             <option value="Admin">Admin</option>
             <option value="User">User</option>
           </select>
           <br />
-          
           <label>Name</label>
           <input
             type="text"
@@ -92,6 +87,22 @@ export default function Registration() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
+          <label> Password </label>
+          <input
+            type="password"
+            className="form-control"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <label>Address</label>
+          <input
+            type="address"
+            className="form-control"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            required
+          />
           <label>Mobile Number</label>
           <input
             type="mobile"
@@ -103,32 +114,13 @@ export default function Registration() {
             minLength={10}
             title="Only ten digits are allowed"
           />
-
-          <label> Password </label>
-          <input
-            type="password"
-            className="form-control"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            pattern="^(?=.[a-zA-Z]{3})(?=.\d{3}).{6}$"
-          />
-          <label>Address</label>
-          <input
-            type="address"
-            className="form-control"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            required
-          />
-
           <div className="text-center">
-            <button className="btn btn-info mt-3" type="submit">
+            <button className="btn btn-primary mt-3" type="submit">
               Sign-Up
             </button>
           </div>
           <div>
-            Already a user? <Link to ="/Login">Login</Link>
+            Already a user? <Link to="/Login">Login</Link>
           </div>
         </form>
       </div>

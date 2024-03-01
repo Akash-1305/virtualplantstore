@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify"
-import { baseurl } from "./App";
+import { baseurl } from "../App";
 import { useLocation } from "react-router-dom";
 
 export default function Manageproducts() {
-
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [image, setImage] = useState("");
@@ -20,7 +19,6 @@ export default function Manageproducts() {
     const [productList, setProductList] = useState([]);
 
     const categories = ['Flower', 'Fruit', 'Tree', 'Seeds', 'Gift'];
-
 
     useEffect(() => {
         getProducts();
@@ -36,6 +34,8 @@ export default function Manageproducts() {
         reader.readAsDataURL(file)
     }
 
+
+
     const handleAddProduct = (e) => {
         e.preventDefault();
         const newPlant = {
@@ -46,9 +46,9 @@ export default function Manageproducts() {
             category: category,
             availability: availability,
         };
-        productid ? axios.put(baseurl + `/Product/UpdateProduct/${productid}`, newPlant) : axios.post(baseurl + "/Product/AddProducts", newPlant)
+        axios.post(baseurl + "/Product/AddProducts", newPlant)
             .then((res) => {
-                toast.success("Product added")
+                toast.success(res.data)
                 getProducts();
                 ClearFilds();
             })
@@ -57,6 +57,29 @@ export default function Manageproducts() {
                 console.log(err);
             })
     }
+
+    const handleEditProduct = (e) => {
+        e.preventDefault();
+        const newPlant = {
+            name: name,
+            price: price,
+            image: image,
+            description: description,
+            category: category,
+            availability: availability,
+        };
+        axios.put(baseurl + `/Product/UpdateProduct/${productid}`, newPlant)
+            .then((res) => {
+                toast.success(res.data)
+                getProducts();
+                ClearFilds();
+            })
+            .catch((err) => {
+                toast.error(err.data)
+                console.log(err);
+            })
+    }
+
 
     function getProducts() {
         axios
@@ -105,14 +128,13 @@ export default function Manageproducts() {
         window.scrollTo(0, 0);
     };
 
-
     return (
         <div>
             <div className="container">
-                {pathname === "/Manageproducts" && (
+                {pathname === "/Admin/Manageproducts" && (
                     <>
-                        <h2 className="text-center">Add Product to Sell</h2>
-                        <form onSubmit={handleAddProduct}>
+                        <h2 className="text-center m-3">Add Product to Sell</h2>
+                        <form onSubmit={productid ? handleEditProduct : handleAddProduct}>
                             <select
                                 className="form-select text-center mb-3"
                                 value={category}
@@ -148,7 +170,6 @@ export default function Manageproducts() {
                                 className="form-control mb-3"
                                 id="image"
                                 onChange={handleImageChange}
-                                required
                             />
                             <label>Discription:</label>
                             <textarea
@@ -157,19 +178,42 @@ export default function Manageproducts() {
                                 onChange={(e) => setDescription(e.target.value)}
                                 required
                             />
-                            {(baseurl + "/Product/AddProducts") ? (
-                                <button className="btn btn-primary" type="submit">{ }
-                                    Add Plant
-                                </button>) : (
-                                <button className="btn btn-primary" type="submit">{ }
-                                    Update
-                                </button>
+                            {productid && (
+                                <>
+                                    <label>Availability:</label>
+                                    <select
+                                        className="form-select mb-3"
+                                        value={availability}
+                                        onChange={(e) => setAvailability(e.target.value)}
+                                        required
+                                    >
+                                        <option value="In Stock">In Stock</option>
+                                        <option value="Out of Stock">Out of Stock</option>
+                                    </select>
+                                </>
                             )}
+                            <div className="d-flex text-inline">
+                                {productid ? (
+                                    <button className="btn btn-primary" type="submit">
+                                        Update
+                                    </button>) : (
+                                    <button className="btn btn-primary" type="submit">
+                                        Add Plant
+                                    </button>
+                                )}
+                                <div className="text-decoration-underline text-primary m-2"
+                                    onClick={ClearFilds}
+                                    style={{ cursor: "pointer" }}
+                                >
+                                    ResetFilds
+                                </div>
+                            </div>
                         </form>
                     </>
                 )}
             </div>
             <div className="m-3" >
+                <h2>Added Products:</h2>
                 <Row>
                     {productList.map((plant, index) => (
                         <Col key={index} md={4}>
@@ -186,9 +230,18 @@ export default function Manageproducts() {
                                         <p>
                                             <strong>Price:</strong> ₹{plant.price}
                                         </p>
-                                        <p>
-                                            <strong>Availability:</strong> {plant.availability}
-                                        </p>
+                                        <span className="d-flex text-in-line">
+                                            <strong>Availability:</strong> &nbsp;
+                                            {plant.availability === "In Stock" ? (
+                                                <p className="text-success">
+                                                    {plant.availability}
+                                                </p>
+                                            ) : (
+                                                <p className="text-danger">
+                                                    {plant.availability}
+                                                </p>
+                                            )}
+                                        </span>
                                         <p>
                                             <strong>Description:</strong> {plant.description}
                                         </p>
@@ -198,7 +251,7 @@ export default function Manageproducts() {
                                     <button className="btn btn-primary" onClick={() => deleteProduct(plant.id)}>
                                         Delete
                                     </button>
-                                    {pathname === "/Manageproducts" && (
+                                    {pathname === "/Admin/Manageproducts" && (
                                         <button className="btn btn-warning ms-3" onClick={() => AssignData(plant)}>
                                             Edit
                                         </button>
