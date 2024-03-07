@@ -54,7 +54,7 @@ export default function Registration() {
 
   return (
     <div>
-      <div className="card m-3 p-3 w-50 mx-auto">
+      <div className="container m-3 mx-auto">
       <h2 className="text-center">Sign Up</h2>
 
         <form onSubmit={handleSubmit}>

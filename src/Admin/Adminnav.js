@@ -1,16 +1,27 @@
-import React, { useState } from "react"
-import { useNavigate, Link, Outlet } from "react-router-dom"
+import React from "react"
+import { useNavigate, Link, Outlet, useLocation } from "react-router-dom"
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Error from "../Errorpage";
 
 
 export default function Adminnav() {
+    const loggedadmin = sessionStorage.getItem("Admin")
+
+    const { pathname } = useLocation();
+
     const navigate = useNavigate();
 
-    function Logout() {
+    function Logout(e) {
+        e.preventDefault();
+        sessionStorage.clear()
         navigate("/")
+    }
+
+    if (!loggedadmin){
+        return < Error />;
     }
 
     return (
@@ -22,9 +33,15 @@ export default function Adminnav() {
                     <Navbar.Collapse>
                         <Nav className="me-auto">
                             <div className="navbar-nav">
-                                <Link className="nav-item nav-link" to={'/Admin'}>Admindashboard</Link>
-                                <Link className="nav-item nav-link" to={'Manageproducts'}>Manageproducts</Link>
-                                <Link className="nav-item nav-link" to={'Manageusers'}>Manageusers</Link>
+                                <Link className={`nav-item nav-link ${pathname === "/Admin" && "active"}`}  to={'/Admin'}>
+                                    Admindashboard
+                                </Link>
+                                <Link className={`nav-item nav-link ${pathname === "/Admin/Manageproducts" && "active"}`} to={'Manageproducts'}>
+                                    Manageproducts
+                                </Link>
+                                <Link className={`nav-item nav-link ${pathname === "/Admin/Manageusers" && "active"}`} to={'Manageusers'}>
+                                    Manageusers
+                                </Link>
                             </div>
                         </Nav>
                         <div className="text-light" onClick={Logout}>

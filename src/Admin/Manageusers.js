@@ -71,7 +71,7 @@ export default function Manageusers() {
                 <Row>
                     {users.map((user, index) => (
                         <Col key={index} md={4}>
-                            <div className="card">
+                            <div className="card m-3">
                                 <div className="card-body">
                                     <p>
                                         <strong>Name:</strong> {user.name}

@@ -14,11 +14,10 @@ export default function Manageproducts() {
     const [productid, setProductId] = useState("");
     const [category, setCategory] = useState("");
     const { pathname } = useLocation();
-    console.log(pathname)
 
     const [productList, setProductList] = useState([]);
 
-    const categories = ['Flower', 'Fruit', 'Tree', 'Seeds', 'Gift'];
+    const categories = ['Flower', 'Fruit', 'Gift', 'Seeds', 'Tree'];
 
     useEffect(() => {
         getProducts();
@@ -216,14 +215,14 @@ export default function Manageproducts() {
                 <h2>Added Products:</h2>
                 <Row>
                     {productList.map((plant, index) => (
-                        <Col key={index} md={4}>
+                        <Col key={index} md={3}>
                             <div className="card m-3" style={{ height: 700 }}>
                                 <div className="card-header d-flex justify-content-center">
-                                    <img src={plant.image} alt={image.name} height={300} width={300} />
+                                    <img src={plant.image} alt={plant.name} style={{height: 200, width: 200}} />
                                 </div>
                                 <div className="overflow-auto">
                                     <div className="m-2">
-                                        <h2>{plant.name}</h2>
+                                        <h5>{plant.name}</h5>
                                         <p>
                                             <strong>Category:</strong> {plant.category}
                                         </p>

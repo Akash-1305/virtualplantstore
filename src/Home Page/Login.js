@@ -2,38 +2,42 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify"
+import "../App.css";
 
 export default function Login() {
 
     const [usertype, setUsertype] = useState("");
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const navigate = useNavigate();
 
     function handleSubmit(e) {
         e.preventDefault();
-        const obj = { email: username, password, userType: usertype };
+        const obj = { email, password, userType: usertype };
         axios
             .post("http://localhost:8081/LoginVerify", obj)
             .then((res) => {
                 if (res.data === "admin") {
-                    toast.success("Login Succesful")
+                    sessionStorage.setItem("Admin", email)
+                    toast.success("Login Succesfull")
                     navigate("/Admin");
                 }
                 if (res.data === "user") {
-                    toast.success("Login Succesful")
+                    toast.success("Login Succesfull")
+                    sessionStorage.setItem("User", email)
                     navigate("/User");
                 }
             })
             .catch((err) => {
-                toast.error("Failed to Login")
-                console.error("Error during login", err);
+                console.log(err);
+                toast.error(err.response.data)
             });
     }
+
     return (
         <div>
-            <div className="card m-3 p-3 w-50 mx-auto">
+            <div className="container m-3 mx-auto">
                 <h2 className="text-center">Login Page</h2>
                 <form onSubmit={handleSubmit}>
                     <label></label>
@@ -53,8 +57,8 @@ export default function Login() {
                     <input
                         type="email"
                         className="form-control mb-3"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                     <label>Enter Password</label>
