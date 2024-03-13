@@ -3,7 +3,7 @@ import axios from "axios";
 import { Row, Col, Container } from "react-bootstrap";
 import { toast } from "react-toastify"
 import { baseurl } from "../App";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export default function User() {
     const [productList, setProductList] = useState([]);
@@ -13,7 +13,6 @@ export default function User() {
 
     const catrgories = ["All", "Flower", "Fruit", "Gift", "Seeds", "Tree"]
 
-    const navigate = useNavigate();
     const { pathname } = useLocation();
 
     useEffect(() => {
@@ -44,16 +43,13 @@ export default function User() {
 
     function getCartByUser() {
         axios
-            .get(baseurl + `/Cart/GetCartByUser/${loggedUser}`)
+            .get(baseurl + `/Cart/getCartByUser/${loggedUser}`)
             .then(res => setCartItem(res.data))
             .catch(console.error)
     }
 
     function addToCart(id) {
-        if (pathname = "/shop" || pathname === "/") {
-            navigate("/login");
-            return;
-        }
+
         axios
             .post(baseurl + `/Cart/AddUpdateCart/${loggedUser}/${id}`)
             .then((res) => {
@@ -125,7 +121,7 @@ export default function User() {
                                     </div>
                                     <div className="overflow-auto">
                                         <div className="card-body">
-                                            <h5 className="card-title">{plant.name}</h5>
+                                            <h5>{plant.name}</h5>
                                             <p>
                                                 <strong>Category:</strong> {plant.category}
                                             </p>

@@ -25,7 +25,7 @@ export default function Usernav() {
 
     function getCartByUser() {
         axios
-            .get(baseurl + `/Cart/GetCartByUser/${loggedUser}`)
+            .get(baseurl + `/Cart/getCartByUser/${loggedUser}`)
             .then(res => setCartItem(res.data))
             .catch((err) => console.log(err))
     }
@@ -59,12 +59,12 @@ export default function Usernav() {
 
                             </div>
                         </Nav>
-                            <Link className={`nav-item nav-link text-light ${pathname === "/User/Cart" && "active"}`} to={'Cart'}>
-                                <RiShoppingCart2Line role="button" style={{ width: '30px', height: '20px', cursor: "pointer" }} />
-                            </Link>
-                            <Badge pill bg="dark" size="sm">
+                        <Link className={`nav-item nav-link text-light`} to={'Cart'}>
+                            <RiShoppingCart2Line role="button" style={{ width: '30px', height: '20px', cursor: "pointer" }} />
+                            <Badge pill bg="dark" size="sm" role="button">
                                 {totalQuntity}
                             </Badge>
+                        </Link>
                         <div className="text-light" onClick={Logout}>
                             <RiLogoutBoxRLine style={{ width: '30px', height: '20px', cursor: "pointer" }} className="m-2" />
                         </div>

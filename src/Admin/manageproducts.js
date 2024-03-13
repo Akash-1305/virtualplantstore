@@ -213,12 +213,12 @@ export default function Manageproducts() {
             </div>
             <div className="m-3" >
                 <h2>Added Products:</h2>
-                <Row>
+                <Row  md={4}>
                     {productList.map((plant, index) => (
-                        <Col key={index} md={3}>
+                        <Col key={index}>
                             <div className="card m-3" style={{ height: 700 }}>
                                 <div className="card-header d-flex justify-content-center">
-                                    <img src={plant.image} alt={plant.name} style={{height: 200, width: 200}} />
+                                    <img src={plant.image} alt={plant.name} style={{ maxHeight: "250px", objectFit: "cover" }}/>
                                 </div>
                                 <div className="overflow-auto">
                                     <div className="m-2">
