@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import { Card, Col, Row } from "react-bootstrap";
 
 const ProductCard = ({ product }) => {
-    console.log(product)
 
     const [cartItem, setCartItem] = useState([]);
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCard from "./Product";
-import OverModal from "./OrderModal";
 import { baseurl } from "../App";
 import { toast } from "react-toastify";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
@@ -9,6 +8,7 @@ import { Link, useLocation } from "react-router-dom";
 import OrderModal from "./OrderModal";
 
 export default function Cart() {
+
     const [cartItem, setCartItem] = useState([]);
     const loggedUser = sessionStorage.getItem("User")
 
@@ -46,12 +46,12 @@ export default function Cart() {
 
     const [show, setShow] = useState(false);
 
-    const toggle = () => setShow(show);
+    const toggle = () => setShow(!show);
 
     const flexStyle = "d-flex justify-content-between align-items-center";
 
     const subTotals = cartItem.map((item) => {
-        return item.quantity * item.products?.price;
+        return item.quantity * item.product?.price;
     });
 
     const totalPrice = subTotals.reduce((acc, curr) => {
@@ -98,10 +98,7 @@ export default function Cart() {
                                     <Card.Text className={flexStyle}>
                                         <span className="fw-bold">Delivery Fee: </span>
                                         <span>
-                                            Free Delivery{" "}
-                                            <i className="text-muted text-decoration-line-through">
-                                                ₹40
-                                            </i>
+                                            Free Delivery("<i className="text-muted text-decoration-line-through">₹40</i> ")
                                         </span>
                                     </Card.Text>
                                     <Card.Text className={flexStyle}>

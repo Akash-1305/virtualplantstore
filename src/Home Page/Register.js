@@ -10,11 +10,13 @@ export default function Registration() {
   const [address, setAddress] = useState("");
   const [mobile, setMobile] = useState("");
   const [userType, setUserType] = useState("");
+  const [city, setCity] = useState("");
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const data = { name, email, mobile, address, password };
+    const data = { name, email, mobile, address, password, city };
 
     if (userType === "Admin") {
       axios
@@ -29,7 +31,7 @@ export default function Registration() {
         });
     } else if (userType === "User") {
       axios
-        .post("http://localhost:8081/AddUser", data)
+        .post("http://localhost:8081/User/AddUser", data)
         .then((res) => {
           toast.info(res.data);
           ClearAll();
@@ -50,6 +52,7 @@ export default function Registration() {
     setAddress("");
     setMobile("");
     setPassword("");
+    setCity("");
   }
 
   return (
@@ -113,6 +116,14 @@ export default function Registration() {
             pattern="[0-9]{10}"
             minLength={10}
             title="Only ten digits are allowed"
+          />
+          <label>Place</label>
+          <input
+            type="place"
+            className="form-control"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            required
           />
           <div className="text-center">
             <button className="btn btn-primary mt-3" type="submit">

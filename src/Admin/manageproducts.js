@@ -213,6 +213,7 @@ export default function Manageproducts() {
             </div>
             <div className="m-3" >
                 <h2>Added Products:</h2>
+                {productList.length > 0 ? (
                 <Row  md={4}>
                     {productList.map((plant, index) => (
                         <Col key={index}>
@@ -260,6 +261,11 @@ export default function Manageproducts() {
                         </Col>
                     ))}
                 </Row>
+                ):(
+                    <Row>
+                        <h2 className="text-center text-danger pt-5">No Products Found </h2>
+                    </Row>
+                )}
             </div>
         </div>
     );

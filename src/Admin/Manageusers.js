@@ -32,7 +32,7 @@ export default function Manageusers() {
 
     const Block = (e) => {
         e.preventDefault();
-        axios.put(baseurl + `/UpdateStatus/${userid}`, obj)
+        axios.put(baseurl + `/User/UpdateStatus/${userid}`, obj)
             .then((res) => {
                 toast.success(res.data)
                 getUsers();
@@ -45,7 +45,7 @@ export default function Manageusers() {
 
     function getUsers() {
         axios
-            .get(baseurl + "/GetUsers")
+            .get(baseurl + "/User/GetUsers")
             .then(res => {
                 setUsers(res.data);
             })
