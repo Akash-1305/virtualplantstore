@@ -3,21 +3,22 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-toastify/dist/ReactToastify.min.css';
 import './App.css';
-import Admin from './Admin/admin';
-import User from './User/user';
-import Login from './Home Page/Login';
+import { ToastContainer } from 'react-toastify';
 import Home from './Home Page/Home';
 import Header from './Home Page/Header';
-import Manageproducts from './Admin/manageproducts';
-import Adminnav from './Admin/Adminnav';
-import Registration from './Home Page/Register';
-import Manageusers from './Admin/Manageusers';
 import About from './Home Page/About';
+import Login from './Home Page/Login';
+import Registration from './Home Page/Register';
+import Admin from './Admin/admin';
+import Adminnav from './Admin/Adminnav';
+import Manageproducts from './Admin/manageproducts';
+import Manageusers from './Admin/Manageusers';
+import Manageorders from './Admin/manageorders'
+import User from './User/user';
 import Usernav from './User/Usernav';
-import Cart from './User/Cart';
-import { ToastContainer } from 'react-toastify';
 import Myorders from './User/Myorders';
 import Myprofile from './User/Myprofile';
+import Cart from './User/Cart';
 export const baseurl = "http://localhost:8081"
 
 
@@ -38,6 +39,7 @@ export default function App() {
           <Route index element={<Admin />} />
           <Route path='Manageproducts' element={<Manageproducts />} />
           <Route path='Manageusers' element={<Manageusers />} />
+          <Route path='Manageorders' element={<Manageorders />} />
         </Route>
         <Route path='User' element={<Usernav/>}>
         <Route index element={<User />} />

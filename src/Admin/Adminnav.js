@@ -42,6 +42,9 @@ export default function Adminnav() {
                                 <Link className={`nav-item nav-link ${pathname === "/Admin/Manageusers" && "active"}`} to={'Manageusers'}>
                                     Manageusers
                                 </Link>
+                                <Link className={`nav-item nav-link ${pathname === "/Admin/Manageoredrs" && "active"}`} to={'Manageorders'}>
+                                    Manageorders
+                                </Link>
                             </div>
                         </Nav>
                         <div className="text-light" onClick={Logout}>

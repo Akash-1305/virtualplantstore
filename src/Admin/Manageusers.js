@@ -22,6 +22,7 @@ export default function Manageusers() {
             .then((res) => {
                 toast.success(res.data)
                 getUsers();
+            
             })
             .catch((err) => {
                 toast.error(err.data)
@@ -67,7 +68,7 @@ export default function Manageusers() {
 
     return (
         <div className="m-3">
-            <form onSubmit={status === "Blocked" ? Active : Block}>
+            <form onSubmit={users.status === "Active" ? Active : Block}>
                 <Row>
                     {users.map((user, index) => (
                         <Col key={index} md={4}>

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify"
 import "../App.css";
+import { baseurl } from "../App";
 
 export default function Login() {
 
@@ -16,7 +17,7 @@ export default function Login() {
         e.preventDefault();
         const obj = { email, password, userType: usertype };
         axios
-            .post("http://localhost:8081/LoginVerify", obj)
+            .post(baseurl + "/LoginVerify", obj)
             .then((res) => {
                 if (res.data === "admin") {
                     sessionStorage.setItem("Admin", email)

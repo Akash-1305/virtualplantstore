@@ -27,7 +27,7 @@ const OrderModal = ({ show, toggle, orderDetails }) => {
 
     useEffect(() => {
         getCartByUser()
-    },[])
+    },[cartItem])
 
     function getCartByUser() {
         axios
@@ -91,7 +91,6 @@ const OrderModal = ({ show, toggle, orderDetails }) => {
             city: input.city,
             cart: cartItem,
         }
-        console.log(orderData);
         axios.post(baseurl + `/Orders/CreateOrder/${loggedUser}`, orderData)
             .then((res) => {
                 toggle();

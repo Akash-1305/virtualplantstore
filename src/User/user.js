@@ -3,13 +3,14 @@ import axios from "axios";
 import { Row, Col, Container } from "react-bootstrap";
 import { toast } from "react-toastify"
 import { baseurl } from "../App";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function User() {
     const [productList, setProductList] = useState([]);
     const [filterList, setFilterList] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState("All")
     const [cartItem, setCartItem] = useState([]);
+    const navigate = useNavigate()
 
     const catrgories = ["All", "Flower", "Fruit", "Gift", "Seeds", "Tree"]
 
@@ -49,8 +50,8 @@ export default function User() {
     }
 
     function addToCart(id) {
-
-        axios
+        if (pathname !== "/") {
+            axios
             .post(baseurl + `/Cart/AddUpdateCart/${loggedUser}/${id}`)
             .then((res) => {
                 toast.success(res.data);
@@ -60,6 +61,11 @@ export default function User() {
                 console.log(err);
                 toast.error(err.response.data);
             });
+        }
+        else{
+            navigate("/login")
+        }
+        
     }
 
     function filterProducts() {

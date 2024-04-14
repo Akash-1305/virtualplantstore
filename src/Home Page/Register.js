@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import { Link } from "react-router-dom";
+import { baseurl } from "../App";
 
 export default function Registration() {
   const [name, setName] = useState("");
@@ -20,9 +21,9 @@ export default function Registration() {
 
     if (userType === "Admin") {
       axios
-        .post("http://localhost:8081/AddAdmin", data)
+        .post(baseurl + "/AddAdmin", data)
         .then((res) => {
-          toast.info(res.data);
+          toast.success(res.data);
           ClearAll();
         })
         .catch((err) => {
@@ -31,7 +32,7 @@ export default function Registration() {
         });
     } else if (userType === "User") {
       axios
-        .post("http://localhost:8081/User/AddUser", data)
+        .post(baseurl + "/User/AddUser", data)
         .then((res) => {
           toast.info(res.data);
           ClearAll();
@@ -98,14 +99,6 @@ export default function Registration() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <label>Address</label>
-          <input
-            type="address"
-            className="form-control"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            required
-          />
           <label>Mobile Number</label>
           <input
             type="mobile"
@@ -117,7 +110,15 @@ export default function Registration() {
             minLength={10}
             title="Only ten digits are allowed"
           />
-          <label>Place</label>
+          <label>Address</label>
+          <input
+            type="address"
+            className="form-control"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            required
+          />
+          <label>City</label>
           <input
             type="place"
             className="form-control"

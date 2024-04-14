@@ -53,10 +53,15 @@ export default function Usernav() {
                     <Navbar.Collapse>
                         <Nav className="me-auto">
                             <div className="navbar-nav">
-                                <Link className={`nav-item nav-link ${pathname === "/User" && "active"}`} to={'/User'} >Products</Link>
-                                <Link className={`nav-item nav-link ${pathname === "/User/MyOrders" && "active"}`} to={'MyOrders'}>My Order</Link>
-                                <Link className={`nav-item nav-link ${pathname === "/User/MyProfile" && "active"}`} to={'MyProfile'}>My Profile</Link>
-
+                                <Link className={`nav-item nav-link ${pathname === "/User" && "active"}`} to={'/User'} >
+                                    Products
+                                </Link>
+                                <Link className={`nav-item nav-link ${pathname === "/User/MyOrders" && "active"}`} to={'MyOrders'}>
+                                    My Orders
+                                </Link>
+                                <Link className={`nav-item nav-link ${pathname === "/User/MyProfile" && "active"}`} to={'MyProfile'}>
+                                    My Profile
+                                </Link>
                             </div>
                         </Nav>
                         <Link className={`nav-item nav-link text-light`} to={'Cart'}>
